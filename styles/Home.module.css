@@ -28,6 +28,7 @@
 .leftTwitterLogo {
   height: 70px;
   width: 70px;
+  cursor: pointer;
 }
 
 .userLogo {
@@ -69,6 +70,7 @@
   color: white;
   width: 100%;
   text-align: left;
+  font-size: 30px;
 }
 
 .input{
@@ -78,10 +80,66 @@
   width: 80%;
   border: none;
   border-bottom: 2px solid grey;
-  padding-bottom: 15px;
   color: white;
+  overflow-wrap: break-word;
 }
 
 .input:focus {
   outline: none;
+}
+
+.tweetButton {
+  background-color: #388FED;
+  font-family: Verdana;
+  font-weight: 800;
+  font-size: 18px;
+  color: white;
+  width: 115px;
+  height: 35px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.tweetSection {
+  width: 80%;
+  text-align: right;
+  margin-top: 15px;
+}
+
+.letterCounter{
+  color: white;
+  font-family: Verdana;
+  margin-right: 20px;
+}
+
+.rightSection{
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trendsSection{
+  width: 100%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/*CSS pour les éléments trends*/
+
+.trend {
+  width: 100%;
+  background-color: #1B232C;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.hashtag{
+  color: white;
+  font-size: 16px;
+}
+
+.tweetsNumber {
+  color: #657e9b;
+  font-size: 13px;
 }
