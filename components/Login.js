@@ -1,12 +1,14 @@
 import styles from '../styles/Login.module.css';
 import {createPortal} from 'react-dom'
 import Signup from './Signup';
+import Signin from './Signin';
 import { useState } from 'react';
 
 function Login() {
 
-  const [showSignupModal, setShowSignupModal] = useState(false)  
-  console.log(showSignupModal)
+  const [showSignupModal, setShowSignupModal] = useState(false)
+  const [showSigninModal, setShowSigninModal] = useState(false)  
+  console.log(showSigninModal)
   return (
     <div>
       <main className={styles.login}>
@@ -21,7 +23,8 @@ function Login() {
                 <button onClick={() => setShowSignupModal(true)} className={styles.signupButton}>Sign up</button>
                 {showSignupModal && createPortal(<Signup closeModal={() => setShowSignupModal(false)}/>, document.body)}
                 <p className={styles.littleText}>Already have an account ?</p>
-                <button className={styles.signinButton}>Sign in</button>
+                <button onClick={() => setShowSigninModal(true)} className={styles.signinButton}>Sign in</button>
+                {showSigninModal && createPortal(<Signin closeModal={() => setShowSigninModal(false)}/>, document.body)}
             </div>
             
         </div>
