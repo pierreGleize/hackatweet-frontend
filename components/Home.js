@@ -3,8 +3,10 @@ import Login from './Login';
 
 function Home() {
   return (
-    <div>
-      <Login></Login>
+    <div className={styles.home}>
+      <section className={styles.leftSection}></section>
+      <section className={styles.middleSection}></section>
+      <section className={styles.rightSection}></section>
     </div>
   );
 }
