@@ -13,7 +13,7 @@
 
 .signupContainer {
     width: 600px;
-    height: 500px;
+    height: 400px;
     background-color: #151D26;
     border-radius: 10px;
     margin-bottom: 150px;
@@ -50,6 +50,7 @@
     border: 1px solid rgb(161, 160, 160);
     padding-left: 10px;
     color: white;
+    margin: 5px;
 }
 
 .signUpButton {
@@ -57,7 +58,7 @@
     width: 200px;
     height: 35px;
     border-radius: 15px;
-    margin-top: 5px;
+    margin-top: 10px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: 800;
     cursor: pointer;
