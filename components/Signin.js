@@ -1,15 +1,30 @@
 import React from 'react'
 import styles from '../styles/Signin.module.css';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { signin } from '../reducers/user';
 
 export default function Signin({closeModal}) {
 
+    const dispatch = useDispatch()
     const [signinUsername, setSigninUsername] = useState('')
     const [signinPassword, setSigninPassword] = useState('')
 
-    function handleClick(){
-        console.log(signinUsername, signinPassword)
-    }
+    const handleClick = () => {
+      fetch('http://localhost:3000/users/signin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({username : signinUsername, password: signinPassword})
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.result){
+          dispatch(signin({username : signinUsername, token: data.token}))
+          setSigninUsername('')
+          setSigninPassword('')
+        }
+      })
+      }
 
   return (
     <div>
