@@ -1,6 +1,10 @@
 .leftSection {
   height : 100vh;
   width: 25vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
 
 }
 
@@ -19,4 +23,65 @@
 .home{
   background-color: #151D26;
   display: flex;
+}
+
+.leftTwitterLogo {
+  height: 70px;
+  width: 70px;
+}
+
+.userLogo {
+  height: 55px;
+  width: 50px;
+}
+
+.userSection {
+  display: flex;
+  align-items: center;
+}
+
+.userInfos {
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.userFirstName {
+  margin: 0;
+}
+
+.username {
+  margin-top: 7px;
+  color:  #657e9b;
+}
+
+.middleSection {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title{
+  color: white;
+  width: 100%;
+  text-align: left;
+}
+
+.input{
+  font-family: Verdana;
+  font-size: 25px;
+  background-color: #151D26;
+  width: 80%;
+  border: none;
+  border-bottom: 2px solid grey;
+  padding-bottom: 15px;
+  color: white;
+}
+
+.input:focus {
+  outline: none;
 }
