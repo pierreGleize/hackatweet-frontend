@@ -122,6 +122,7 @@
 
 .logout {
   color: white;
+<<<<<<< HEAD
   text-align: center;
   width: 100px;
   height: 25px;
@@ -131,3 +132,49 @@
   border-radius: 15px;
   cursor: pointer;
 }
+=======
+  font-size: 16px;
+}
+
+.tweetsNumber {
+  color: #657e9b;
+  font-size: 13px;
+}
+
+.tweetsContainer{
+  overflow: auto;
+  width: 100%;
+  width: calc(100% + 60px);
+}
+
+
+/*  */
+
+
+/* Barre de défilement */
+.tweetsContainer::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Partie de la barre de défilement (thumb) */
+.tweetsContainer::-webkit-scrollbar-thumb {
+  background: #888; /* Couleur de la barre de défilement */
+  border-radius: 8px; /* Bordure arrondie */
+}
+
+/* Effet au survol de la barre de défilement */
+.tweetsContainer::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Couleur au survol */
+}
+
+/* Barre de défilement horizontale */
+.tweetsContainer::-webkit-scrollbar-horizontal {
+  height: 6px;
+}
+
+/* Barre de défilement verticale */
+.tweetsContainer::-webkit-scrollbar-vertical {
+  width: 6px;
+}
+>>>>>>> e178e671b5b2fdf7e12e4fd3947267b359cba1b5
