@@ -1,0 +1,63 @@
+.modalDiv {
+    position: fixed;        
+    top: 0;                 
+    left: 0;                
+    width: 100%;            
+    height: 100%;           
+    background-color: rgba(31, 41, 55, 0.75); 
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signupContainer {
+    width: 600px;
+    height: 500px;
+    background-color: #151D26;
+    border-radius: 10px;
+    margin-bottom: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+
+.signupTwitterLogo {
+    height: 100px;
+    width: 100px;
+}
+
+.signupTitle{
+    color: white;
+    font-size: 20px;
+}
+
+.close{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    color: white;
+    cursor: pointer;
+}
+
+.signUpInput {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 5px;
+    height: 40px;
+    background-color: #151D26;
+    border: 1px solid rgb(161, 160, 160);
+    padding-left: 10px;
+    color: white;
+}
+
+.signUpButton {
+    background-color: white;
+    width: 200px;
+    height: 35px;
+    border-radius: 15px;
+    margin-top: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 800;
+}

@@ -1,0 +1,82 @@
+.leftDiv {
+    background-image: url('/background.jpg');
+    background-size: cover;
+    width: 40vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rightDiv {
+    background-color: #151D26;
+    width: 60vw;
+    height: 100vh;
+    padding: 30px;
+}
+
+.login {
+    display: flex;
+}
+
+.leftTwitterLogo {
+    width: 500px;
+    height: 500px;
+}
+
+.loginDiv {
+    width: 60%;
+}
+
+
+.mainTitle {
+    color: white;
+    font-size: 80px;
+}
+
+.secondTitle {
+    color: white;
+    font-size: 30px
+}
+
+.rightTwitterLogo {
+    height: 100px;
+    width: 100px;
+}
+
+.littleText {
+    color: white;
+    font-size: 13px;
+}
+
+.signupButton {
+    width: 170px;
+    height: 40px;
+    border-radius: 30px;
+    background-color: #3690ED;
+    color: white;
+    cursor: pointer;
+    border: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 600;
+}
+
+.signupButton:hover {
+    background-color: #195da0;
+}
+
+.signinButton {
+    width: 170px;
+    height: 40px;
+    border-radius: 30px;
+    background-color: #151D26;
+    color: #3690ED;
+    cursor: pointer;
+    border: 1px solid #aab4be;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 600;
+}
+
+.signinButton:hover {
+    background-color: #354557;
+}
