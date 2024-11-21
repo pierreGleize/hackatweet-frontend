@@ -21,7 +21,6 @@ export default function Signup({closeModal}) {
       .then(response => response.json())
       .then(data =>{
         if(data.result){
-          console.log(data)
           dispatch(signup({username: signupUsername, firstName: signupFirstName, token : data.token}))
           setSignupFirstName('');
           setSignupUsername('');
