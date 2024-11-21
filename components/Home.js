@@ -1,10 +1,24 @@
 import styles from "../styles/Home.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import Tweet from "./Tweet";
 
 function Home() {
   const [tweetMessage, setTweetMessage] = useState("");
   const [counter, setCounter] = useState(0);
+  const [tweetsData, setTweetsData] = useState([]);
+  const [lastTweet, setLastTweet] = useState({});
+
+  useEffect(() => {
+    fetch("http://localhost:3000/tweets")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          setLastTweet(data.tweets[data.tweets.length - 1]);
+          setTweetsData(data.tweets.slice(0, data.tweets.length - 1));
+        }
+      });
+  }, []);
 
   function createMessage(e) {
     const input = e.target.value;
@@ -13,6 +27,19 @@ function Home() {
       setCounter(input.length);
     }
   }
+
+  const tweets = tweetsData.map((element, i) => (
+    <Tweet
+      key={i}
+      date={element.date}
+      message={element.message}
+      like={element.like.length}
+      avatar={element.user.avatar}
+      firstname={element.user.firstName}
+      username={element.user.username}
+    />
+  ));
+  // console.log(tweets);
 
   return (
     <div className={styles.home}>
@@ -42,8 +69,7 @@ function Home() {
           <span className={styles.letterCounter}>{counter}/280</span>
           <button className={styles.tweetButton}>Tweet</button>
         </div>
-        <Tweet />
-        <Tweet />
+        <div className={styles.tweetsContainer}>{tweets}</div>
       </section>
 
       <section className={styles.rightSection}>

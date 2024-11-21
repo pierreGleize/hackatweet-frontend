@@ -1,5 +1,5 @@
 .tweetContainer{
-    width: calc(100% + 60px);
+    /* width: calc(100% + 60px); */
     color: white;
     border-top: 1px solid white;
     display: flex;

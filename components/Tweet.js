@@ -4,26 +4,29 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-const Tweet = () => {
+const Tweet = ({ date, message, like, avatar, firstname, username }) => {
   const regex = /#(\w+)/g;
 
   return (
     <div className={styles.tweetContainer}>
       <div className={styles.info}>
         <img
-          src="/userIcon.png"
+          src={avatar}
           alt="Picture of the user"
           className={styles.userImage}
         />
         <p>
-          Antoine{" "}
-          <span className={styles.textGrey}> @Antoine le prof . 5 hours</span>
+          {firstname}{" "}
+          <span className={styles.textGrey}>
+            {" "}
+            @{username}. {date}
+          </span>
         </p>
       </div>
-      <p>Welcome to #hackatweet</p>
+      <p>{message}</p>
       <div className={styles.like}>
         <FontAwesomeIcon icon={faHeart} />
-        <p> 0</p>
+        <p> {like}</p>
       </div>
     </div>
   );
