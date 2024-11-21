@@ -1,11 +1,8 @@
 import styles from '../styles/Home.module.css';
-import { useState } from 'react';
-import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../reducers/user';
 import { useRouter } from 'next/router'
 import Trends from './Trends';
-import styles from "../styles/Home.module.css";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Tweet from "./Tweet";
@@ -60,19 +57,19 @@ function Home() {
   return (
     <div className={styles.home}>
       <section className={styles.leftSection}>
-      <Link href="/homepage"><img className={styles.leftTwitterLogo} src='/twitter.png'></img></Link>
+        <Link href="/homepage"><img className={styles.leftTwitterLogo} src='/twitter.png'></img></Link>
         <div className={styles.userDiv}>
           <div className={styles.userSection}>
             <img className={styles.userLogo} src='/userIcon.png'></img>
             <div className={styles.userInfos}>
               <h3 className={styles.userFirstName}>{user.firstName}</h3>
               <span className={styles.username}>{user.username}</span>
+            
+              <button className={styles.logout} onClick={handleClick}>Logout</button>
             </div>
           </div>
-          <button className={styles.logout} onClick={handleClick}>Logout</button>
         </div>
-      </section>
-
+        </section>
       <section className={styles.middleSection}>
         <h2 className={styles.title}>Home</h2>
         <textarea
@@ -92,7 +89,6 @@ function Home() {
       <Trends/>
       </div>
     </div>
-  );
+  )
 }
-
 export default Home;

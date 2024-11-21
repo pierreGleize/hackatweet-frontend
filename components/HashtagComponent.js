@@ -1,20 +1,28 @@
-import styles from '../styles/Home.module.css';
-import { useState } from 'react';
+import styles from '../styles/HashtagComponent.module.css';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-function Hashtag() {
+function HashtagComponent() {
 
-  const [tweetMessage, setTweetMessage] = useState('')
-  const [counter, setCounter] = useState(0)
+  const router = useRouter();
+  const { slug } = router.query;
 
+  const [hashtag, setHashtag] = useState('')
 
-  function createMessage(e){
-    const input = e.target.value
-    if (input.length <= 280){
-      setTweetMessage(input)
-      setCounter(input.length)
+  useEffect(() => {
+    if (slug) {
+        setHashtag("#" +slug);
     }
+  }, [slug]);
+
+  function searchHashtag(e){
+    setHashtag(e.target.value)
+    let value = e.target.value
+    value = value.slice(1)
+    router.push(`/hashtag/${value}`, undefined, { shallow: true });
   }
+
 
   return (
     <div className={styles.home}>
@@ -31,12 +39,8 @@ function Hashtag() {
       </section>
 
       <section className={styles.middleSection}>
-        <h2 className={styles.title}>Home</h2>
-        <textarea  value={tweetMessage} onChange={(e) => createMessage(e)} type="text"placeholder="What's up?" className={styles.input}></textarea>
-        <div className={styles.tweetSection}>
-          <span className={styles.letterCounter}>{counter}/280</span>
-          <button className={styles.tweetButton}>Tweet</button>
-        </div>
+        <h2 className={styles.title}>Hashtag</h2>
+        <input  value={hashtag} onChange={(e) =>searchHashtag(e)} type="text" className={styles.input}></input>
       </section>
 
       <section className={styles.rightSection}>
@@ -59,4 +63,4 @@ function Hashtag() {
   );
 }
 
-export default Hashtag;
+export default HashtagComponent;

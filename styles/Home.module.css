@@ -122,7 +122,7 @@
 
 .logout {
   color: white;
-<<<<<<< HEAD
+
   text-align: center;
   width: 100px;
   height: 25px;
@@ -132,14 +132,13 @@
   border-radius: 15px;
   cursor: pointer;
 }
-=======
-  font-size: 16px;
-}
+
 
 .tweetsNumber {
   color: #657e9b;
   font-size: 13px;
 }
+
 
 .tweetsContainer{
   overflow: auto;
@@ -177,4 +176,4 @@
 .tweetsContainer::-webkit-scrollbar-vertical {
   width: 6px;
 }
->>>>>>> e178e671b5b2fdf7e12e4fd3947267b359cba1b5
+
