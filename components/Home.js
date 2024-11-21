@@ -1,14 +1,21 @@
 import styles from "../styles/Home.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../reducers/user";
+import { useRouter } from "next/router";
+import Trends from "./Trends";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Tweet from "./Tweet";
 
 function Home() {
-  const [tweetMessage, setTweetMessage] = useState("");
-  const [counter, setCounter] = useState(0);
   const [tweetsData, setTweetsData] = useState([]);
   const [lastTweet, setLastTweet] = useState({});
 
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
+  const router = useRouter();
+  const [tweetMessage, setTweetMessage] = useState("");
+  const [counter, setCounter] = useState(0);
   useEffect(() => {
     fetch("http://localhost:3000/tweets")
       .then((response) => response.json())
@@ -27,6 +34,10 @@ function Home() {
       setCounter(input.length);
     }
   }
+  const handleClick = () => {
+    dispatch(logout());
+    router.push("/");
+  };
 
   const tweets = tweetsData.map((element, i) => (
     <Tweet
@@ -53,10 +64,8 @@ function Home() {
             <h3 className={styles.userFirstName}>Thomas</h3>
             <span className={styles.username}>@thomasLebel</span>
           </div>
-          <button className={styles.logout}>Logout</button>
         </div>
       </section>
-
       <section className={styles.middleSection}>
         <h2 className={styles.title}>Home</h2>
         <textarea
@@ -72,23 +81,10 @@ function Home() {
         </div>
         <div className={styles.tweetsContainer}>{tweets}</div>
       </section>
-
-      <section className={styles.rightSection}>
-        <h2 className={styles.title}>Trends</h2>
-        <div className={styles.trendsSection}>
-          <div className={styles.trend}>
-            <h3 className={styles.hashtag}>#hackatweet</h3>
-            <p className={styles.tweetsNumber}>2 Tweets</p>
-          </div>
-
-          <div className={styles.trend}>
-            <h3 className={styles.hashtag}>#hackatweet</h3>
-            <p className={styles.tweetsNumber}>2 Tweets</p>
-          </div>
-        </div>
-      </section>
+      <div>
+        <Trends />
+      </div>
     </div>
   );
 }
-
 export default Home;
