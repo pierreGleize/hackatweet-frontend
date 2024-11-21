@@ -44,16 +44,6 @@ function Home() {
   return (
     <div className={styles.home}>
       <section className={styles.leftSection}>
-<<<<<<< HEAD
-      <Link href="/homepage"><img className={styles.leftTwitterLogo} src='/twitter.png'></img></Link>
-        <div className={styles.userDiv}>
-          <div className={styles.userSection}>
-            <img className={styles.userLogo} src='/userIcon.png'></img>
-            <div className={styles.userInfos}>
-              <h3 className={styles.userFirstName}>Thomas</h3>
-              <span className={styles.username}>@thomasLebel</span>
-            </div>
-=======
         <Link href="/homepage">
           <img className={styles.leftTwitterLogo} src="/twitter.png"></img>
         </Link>
@@ -62,7 +52,6 @@ function Home() {
           <div className={styles.userInfos}>
             <h3 className={styles.userFirstName}>Thomas</h3>
             <span className={styles.username}>@thomasLebel</span>
->>>>>>> e178e671b5b2fdf7e12e4fd3947267b359cba1b5
           </div>
           <button className={styles.logout}>Logout</button>
         </div>
