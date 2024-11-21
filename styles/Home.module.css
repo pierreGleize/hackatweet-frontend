@@ -113,44 +113,16 @@
   margin-right: 20px;
 }
 
-.rightSection{
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.trendsSection{
-  width: 100%;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
 
 .userDiv {
   display: flex;
   flex-direction: column;
 }
 
-/*CSS pour les éléments trends*/
-
-.trend {
-  width: 100%;
-  background-color: #1B232C;
-  padding: 15px;
-  cursor: pointer;
-}
-
-.hashtag{
-  color: white;
-  font-size: 16px;
-}
-
-.tweetsNumber {
-  color: #657e9b;
-  font-size: 13px;
-}
-
 .logout {
   color: white;
+
   text-align: center;
   width: 100px;
   height: 25px;
@@ -160,6 +132,13 @@
   border-radius: 15px;
   cursor: pointer;
 }
+
+
+.tweetsNumber {
+  color: #657e9b;
+  font-size: 13px;
+}
+
 
 .tweetsContainer{
   overflow: auto;
@@ -197,3 +176,4 @@
 .tweetsContainer::-webkit-scrollbar-vertical {
   width: 6px;
 }
+

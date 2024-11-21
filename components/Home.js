@@ -1,14 +1,23 @@
-import styles from "../styles/Home.module.css";
+import styles from '../styles/Home.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../reducers/user';
+import { useRouter } from 'next/router'
+import Trends from './Trends';
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Tweet from "./Tweet";
 
 function Home() {
-  const [tweetMessage, setTweetMessage] = useState("");
-  const [counter, setCounter] = useState(0);
+
+
   const [tweetsData, setTweetsData] = useState([]);
   const [lastTweet, setLastTweet] = useState({});
 
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user.value)
+  const router = useRouter()
+  const [tweetMessage, setTweetMessage] = useState('')
+  const [counter, setCounter] = useState(0)
   useEffect(() => {
     fetch("http://localhost:3000/tweets")
       .then((response) => response.json())
@@ -27,6 +36,10 @@ function Home() {
       setCounter(input.length);
     }
   }
+  const handleClick = () => {
+    dispatch(logout())
+    router.push('/')
+  }
 
   const tweets = tweetsData.map((element, i) => (
     <Tweet
@@ -44,19 +57,19 @@ function Home() {
   return (
     <div className={styles.home}>
       <section className={styles.leftSection}>
-        <Link href="/homepage">
-          <img className={styles.leftTwitterLogo} src="/twitter.png"></img>
-        </Link>
-        <div className={styles.userSection}>
-          <img className={styles.userLogo} src="/userIcon.png"></img>
-          <div className={styles.userInfos}>
-            <h3 className={styles.userFirstName}>Thomas</h3>
-            <span className={styles.username}>@thomasLebel</span>
+        <Link href="/homepage"><img className={styles.leftTwitterLogo} src='/twitter.png'></img></Link>
+        <div className={styles.userDiv}>
+          <div className={styles.userSection}>
+            <img className={styles.userLogo} src='/userIcon.png'></img>
+            <div className={styles.userInfos}>
+              <h3 className={styles.userFirstName}>{user.firstName}</h3>
+              <span className={styles.username}>{user.username}</span>
+            
+              <button className={styles.logout} onClick={handleClick}>Logout</button>
+            </div>
           </div>
-          <button className={styles.logout}>Logout</button>
         </div>
-      </section>
-
+        </section>
       <section className={styles.middleSection}>
         <h2 className={styles.title}>Home</h2>
         <textarea
@@ -72,23 +85,10 @@ function Home() {
         </div>
         <div className={styles.tweetsContainer}>{tweets}</div>
       </section>
-
-      <section className={styles.rightSection}>
-        <h2 className={styles.title}>Trends</h2>
-        <div className={styles.trendsSection}>
-          <div className={styles.trend}>
-            <h3 className={styles.hashtag}>#hackatweet</h3>
-            <p className={styles.tweetsNumber}>2 Tweets</p>
-          </div>
-
-          <div className={styles.trend}>
-            <h3 className={styles.hashtag}>#hackatweet</h3>
-            <p className={styles.tweetsNumber}>2 Tweets</p>
-          </div>
-        </div>
-      </section>
+      <div>
+      <Trends/>
+      </div>
     </div>
-  );
+  )
 }
-
 export default Home;
