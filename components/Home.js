@@ -1,14 +1,14 @@
-import styles from '../styles/Home.module.css';
-import Login from './Login';
+import styles from "../styles/Home.module.css";
+import Login from "./Login";
+import Tweet from "./Tweet";
 
 function Home() {
   return (
     <div className={styles.home}>
-
       <section className={styles.leftSection}>
-        <img className={styles.leftTwitterLogo} src='/twitter.png'></img>
+        <img className={styles.leftTwitterLogo} src="/twitter.png"></img>
         <div className={styles.userSection}>
-          <img className={styles.userLogo} src='/userIcon.png'></img>
+          <img className={styles.userLogo} src="/userIcon.png"></img>
           <div className={styles.userInfos}>
             <h3 className={styles.userFirstName}>Thomas</h3>
             <span className={styles.username}>@thomasLebel</span>
@@ -23,7 +23,8 @@ function Home() {
           <span className={styles.letterCounter}>0/280</span>
           <button className={styles.tweetButton}>Tweet</button>
         </div>
-        
+        <Tweet />
+        <Tweet />
       </section>
 
       <section className={styles.rightSection}></section>

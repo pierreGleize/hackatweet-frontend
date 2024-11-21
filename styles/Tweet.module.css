@@ -1,0 +1,29 @@
+.tweetContainer{
+    width: calc(100% + 60px);
+    color: white;
+    border-top: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+}
+
+.info{
+    display: flex;
+    align-items: center;
+}
+.userImage{
+    margin-right: 10px;
+    width: 75px;
+}
+.textGrey{
+    color: #424D5D
+}
+.like{
+    display: flex;
+    align-items: center;
+}
+.like svg{
+    margin-right: 5px;
+}
+
