@@ -2,7 +2,7 @@ import styles from '../styles/Home.module.css';
 import { useState } from 'react';
 import Link from 'next/link';
 
-function Home() {
+function Hashtag() {
 
   const [tweetMessage, setTweetMessage] = useState('')
   const [counter, setCounter] = useState(0)
@@ -59,4 +59,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Hashtag;
