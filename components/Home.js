@@ -21,12 +21,15 @@ function Home() {
 
       <section className={styles.leftSection}>
       <Link href="/homepage"><img className={styles.leftTwitterLogo} src='/twitter.png'></img></Link>
-        <div className={styles.userSection}>
-          <img className={styles.userLogo} src='/userIcon.png'></img>
-          <div className={styles.userInfos}>
-            <h3 className={styles.userFirstName}>Thomas</h3>
-            <span className={styles.username}>@thomasLebel</span>
+        <div className={styles.userDiv}>
+          <div className={styles.userSection}>
+            <img className={styles.userLogo} src='/userIcon.png'></img>
+            <div className={styles.userInfos}>
+              <h3 className={styles.userFirstName}>Thomas</h3>
+              <span className={styles.username}>@thomasLebel</span>
+            </div>
           </div>
+          <button className={styles.logout}>Logout</button>
         </div>
       </section>
 

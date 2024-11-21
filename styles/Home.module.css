@@ -125,6 +125,11 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.userDiv {
+  display: flex;
+  flex-direction: column;
+}
+
 /*CSS pour les éléments trends*/
 
 .trend {
@@ -142,4 +147,16 @@
 .tweetsNumber {
   color: #657e9b;
   font-size: 13px;
+}
+
+.logout {
+  color: white;
+  text-align: center;
+  width: 100px;
+  height: 25px;
+  margin-top: 15px;
+  background-color: #151D26;
+  border: 1px solid white;
+  border-radius: 15px;
+  cursor: pointer;
 }
