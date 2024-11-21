@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '../styles/Signin.module.css';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signin } from '../reducers/user';
 import { useRouter } from 'next/router'
 
@@ -10,6 +10,7 @@ export default function Signin({closeModal}) {
 
     const dispatch = useDispatch()
     const router = useRouter()
+    const user = useSelector(state => state.user.value)
     const [signinUsername, setSigninUsername] = useState('')
     const [signinPassword, setSigninPassword] = useState('')
 
@@ -17,7 +18,7 @@ export default function Signin({closeModal}) {
       fetch('http://localhost:3000/users/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({username : signinUsername, password: signinPassword})
+        body: JSON.stringify({username : signinUsername, password: signinPassword, firstName: user.firstName})
       })
       .then(response => response.json())
       .then(data => {

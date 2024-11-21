@@ -1,16 +1,9 @@
 import styles from '../styles/Home.module.css';
 import { useState } from 'react';
 import Link from 'next/link';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../reducers/user';
-import { useRouter } from 'next/router'
-import Trends from './Trends';
 
-function Home() {
+function Hashtag() {
 
-  const dispatch = useDispatch()
-  const user = useSelector(state => state.user.value)
-  const router = useRouter()
   const [tweetMessage, setTweetMessage] = useState('')
   const [counter, setCounter] = useState(0)
 
@@ -22,25 +15,18 @@ function Home() {
       setCounter(input.length)
     }
   }
-  const handleClick = () => {
-    dispatch(logout())
-    router.push('/')
-  }
 
   return (
     <div className={styles.home}>
 
       <section className={styles.leftSection}>
       <Link href="/homepage"><img className={styles.leftTwitterLogo} src='/twitter.png'></img></Link>
-        <div className={styles.userDiv}>
-          <div className={styles.userSection}>
-            <img className={styles.userLogo} src='/userIcon.png'></img>
-            <div className={styles.userInfos}>
-              <h3 className={styles.userFirstName}>{user.firstName}</h3>
-              <span className={styles.username}>{user.username}</span>
-            </div>
+        <div className={styles.userSection}>
+          <img className={styles.userLogo} src='/userIcon.png'></img>
+          <div className={styles.userInfos}>
+            <h3 className={styles.userFirstName}>Thomas</h3>
+            <span className={styles.username}>@thomasLebel</span>
           </div>
-          <button className={styles.logout} onClick={handleClick}>Logout</button>
         </div>
       </section>
 
@@ -52,11 +38,25 @@ function Home() {
           <button className={styles.tweetButton}>Tweet</button>
         </div>
       </section>
-      <div>
-      <Trends/>
-      </div>
+
+      <section className={styles.rightSection}>
+        <h2 className={styles.title}>Trends</h2>
+        <div className={styles.trendsSection}>
+
+          <div className={styles.trend}>
+            <h3 className={styles.hashtag}>#hackatweet</h3>
+            <p className={styles.tweetsNumber}>2 Tweets</p>
+          </div>
+
+          <div className={styles.trend}>
+            <h3 className={styles.hashtag}>#hackatweet</h3>
+            <p className={styles.tweetsNumber}>2 Tweets</p>
+          </div>
+
+        </div>
+      </section>
     </div>
   );
 }
 
-export default Home;
+export default Hashtag;
