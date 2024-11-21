@@ -1,15 +1,33 @@
 import React from 'react'
 import styles from '../styles/Signup.module.css';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import {signup} from '../reducers/user';
 
 export default function Signup({closeModal}) {
+
+  const dispatch = useDispatch()
 
     const [signupFirstName, setSignupFirstName] = useState('')
     const [signupUsername, setSignupUsername] = useState('')
     const [signupPassword, setSignUpPassword] = useState('')
 
-    function handleClick(){
-        console.log(signupFirstName, signupUsername, signupPassword)
+    const handleClick = () =>{
+      fetch('http://localhost:3000/users/signup', {
+        method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ username: signupUsername, password: signupPassword, firstName : signupFirstName }),
+      })
+      .then(response => response.json())
+      .then(data =>{
+        if(data.result){
+          console.log(data)
+          dispatch(signup({username: signupUsername, firstName: signupFirstName, token : data.token}))
+          setSignupFirstName('');
+          setSignupUsername('');
+          setSignUpPassword('');
+        }
+      })
     }
 
   return (
