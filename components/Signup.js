@@ -12,6 +12,7 @@ export default function Signup({closeModal}) {
   const [signupFirstName, setSignupFirstName] = useState('')
   const [signupUsername, setSignupUsername] = useState('')
   const [signupPassword, setSignUpPassword] = useState('')
+  const [messageError, setMessageError] = useState('')
 
   const handleClick = () =>{
     fetch('http://localhost:3000/users/signup', {
@@ -22,11 +23,13 @@ export default function Signup({closeModal}) {
       .then(response => response.json())
       .then(data =>{
         if(data.result){
-          dispatch(signup({username: signupUsername, firstName: signupFirstName, token : data.token}))
+          dispatch(signup({token : data.token}))
           router.push('/homepage')
           setSignupFirstName('');
           setSignupUsername('');
           setSignUpPassword('');
+        } else {
+          setMessageError('Missing or empty fields')
         }
       })
     }
@@ -44,6 +47,7 @@ export default function Signup({closeModal}) {
            <input onChange={(e) => setSignupUsername(e.target.value)} value={signupUsername} className={styles.signUpInput} placeholder='Username'></input>
            <input onChange={(e) => setSignUpPassword(e.target.value)} value={signupPassword} type='password'className={styles.signUpInput} placeholder='Password'></input>
            <button onClick={handleClick} className={styles.signUpButton}>Sign-Up</button>
+           <span className={styles.messageError}>{messageError}</span>
        </div>
      </div>
     </div>
