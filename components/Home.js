@@ -6,12 +6,16 @@ import Trends from './Trends';
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Tweet from "./Tweet";
+import moment from 'moment';
+
 
 function Home() {
 
 
   const [tweetsData, setTweetsData] = useState([]);
   const [lastTweet, setLastTweet] = useState({});
+  const [firstName, setFirstName] = useState('')
+  const [username, setUsername] = useState('')
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.user.value)
@@ -21,6 +25,7 @@ function Home() {
   const [trends, setTrends] = useState([])
 
 
+  
   useEffect(() => {
     fetch("http://localhost:3000/tweets")
       .then((response) => response.json())
@@ -51,6 +56,36 @@ function Home() {
   })
   
 
+
+  useEffect(() => {
+    if(!user.token){
+      return
+    }
+    fetch(`http://localhost:3000/users/${user.token}`)
+    .then(response => response.json())
+    .then(data => {
+      if(data.result){
+        setFirstName(data.firstName);
+        setUsername(data.username);
+      }
+    })
+  }, [])
+
+
+  useEffect(() => {
+    if(!user.token){
+      return
+    }
+    fetch(`http://localhost:3000/users/${user.token}`)
+    .then(response => response.json())
+    .then(data => {
+      if(data.result){
+        setFirstName(data.firstName);
+        setUsername(data.username);
+      }
+    })
+  }, [])
+
   function createMessage(e) {
     const input = e.target.value;
     if (input.length <= 280) {
@@ -58,15 +93,22 @@ function Home() {
       setCounter(input.length);
     }
   }
+
   const handleClick = () => {
     dispatch(logout())
     router.push('/')
   }
 
+  let styleWord = {}
+  const regex = /#[0-9 A-Z]/gi
+  if(element.message.match(regex)){
+    styleWord = {'color' : '#3b88d5'}
+  }
+
   const tweets = tweetsData.map((element, i) => (
     <Tweet
       key={i}
-      date={element.date}
+      date={moment(element.date).fromNow(true)}
       message={element.message}
       like={element.like.length}
       avatar={element.user.avatar}
@@ -84,8 +126,8 @@ function Home() {
           <div className={styles.userSection}>
             <img className={styles.userLogo} src='/userIcon.png'></img>
             <div className={styles.userInfos}>
-              <h3 className={styles.userFirstName}>{user.firstName}</h3>
-              <span className={styles.username}>{user.username}</span>
+              <h3 className={styles.userFirstName}>{firstName}</h3>
+              <span className={styles.username}>{username}</span>
             
               <button className={styles.logout} onClick={handleClick}>Logout</button>
             </div>
@@ -105,7 +147,7 @@ function Home() {
           <span className={styles.letterCounter}>{counter}/280</span>
           <button className={styles.tweetButton}>Tweet</button>
         </div>
-        <div className={styles.tweetsContainer}>{tweets}</div>
+        <div className={styles.tweetsContainer} style={styleWord}>{tweets}</div>
       </section>
       <div>
       <section className={styles.rightSection}>

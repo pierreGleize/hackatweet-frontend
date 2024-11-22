@@ -13,20 +13,23 @@ export default function Signin({closeModal}) {
     const user = useSelector(state => state.user.value)
     const [signinUsername, setSigninUsername] = useState('')
     const [signinPassword, setSigninPassword] = useState('')
+    const [messageError, setMessageError] = useState('')
 
     const handleClick = () => {
       fetch('http://localhost:3000/users/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({username : signinUsername, password: signinPassword, firstName: user.firstName})
+        body: JSON.stringify({username : signinUsername, password: signinPassword})
       })
       .then(response => response.json())
       .then(data => {
         if(data.result){
-          dispatch(signin({username : signinUsername, token: data.token}))
+          dispatch(signin({token: data.token}))
           router.push('/homepage')
           setSigninUsername('')
           setSigninPassword('')
+        } else {
+          setMessageError('User not found or Empty fields')
         }
 
       })
@@ -44,6 +47,7 @@ export default function Signin({closeModal}) {
           <input onChange={(e) => setSigninUsername(e.target.value)} value={signinUsername} className={styles.signUpInput} placeholder='Username'></input>
           <input onChange={(e) => setSigninPassword(e.target.value)} value={signinPassword} type='password'className={styles.signUpInput} placeholder='Password'></input>
           <button onClick={handleClick} className={styles.signUpButton}>Sign-in</button>
+          <span className={styles.messageError}>{messageError}</span>
         </div>
       </div>
     </div>
