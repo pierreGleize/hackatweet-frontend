@@ -2,17 +2,22 @@ import styles from '../styles/HashtagComponent.module.css';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 import Trends from './Trends';
 import Tweet from './Tweet';
+import { logout } from '../reducers/user';
 
 function HashtagComponent() {
 
   const router = useRouter();
   const { slug } = router.query;
-
+  const user = useSelector(state => state.user.value)
+  const dispatch = useDispatch()
   const [hashtag, setHashtag] = useState('')
   const [trends, setTrends] = useState([])
   const [tweets, setTweets] = useState([])
+  const [firstName, setFirstName] = useState('')
+  const [username, setUsername] = useState('')
   console.log(tweets)
 
   // Fonctionnalité pour changer l'url de manière dynamique
@@ -66,8 +71,35 @@ function HashtagComponent() {
 
     // Création du tableau avec les composants tweet trouvés
     const tweetsTab = tweets.map(tweet => {
-      return <Tweet date={tweet.date} message={tweet.message} like={tweet.like.length} avatar={tweet.user.avatar} firstname={tweet.user.firstname} username={tweet.user.username}/>
+    const message = tweet.message.split(' ')
+    const tweets = message.map((word, i) => {
+      if(word.startsWith('#')){
+        return <span key={i} style={{'color':'#3283d3'}}>{word}{' '}</span>
+      } else {
+        return word + ' '
+      }
+    }) 
+      return <Tweet date={tweet.date} message={tweets} like={tweet.like.length} avatar={tweet.user.avatar} firstname={tweet.user.firstname} username={tweet.user.username}/>
     })
+
+    useEffect(() => {
+      if(!user.token){
+        return
+      }
+      fetch(`http://localhost:3000/users/${user.token}`)
+      .then(response => response.json())
+      .then(data => {
+        if(data.result){
+          setFirstName(data.firstName);
+          setUsername(data.username);
+        }
+      })
+    }, [])
+
+    const handleClick = () => {
+      dispatch(logout());
+      router.push("/");
+    };
 
 
   return (
@@ -78,8 +110,9 @@ function HashtagComponent() {
         <div className={styles.userSection}>
           <img className={styles.userLogo} src='/userIcon.png'></img>
           <div className={styles.userInfos}>
-            <h3 className={styles.userFirstName}>Thomas</h3>
-            <span className={styles.username}>@thomasLebel</span>
+            <h3 className={styles.userFirstName}>{firstName}</h3>
+            <span className={styles.username}>@{username}</span>
+            <button className={styles.logout} onClick={handleClick}>Logout</button>
           </div>
         </div>
       </section>
