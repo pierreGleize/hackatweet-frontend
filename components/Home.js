@@ -7,15 +7,18 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Tweet from "./Tweet";
 import moment from "moment";
+import { resetLikes } from "../reducers/likes";
 
 function Home() {
   const [tweetsData, setTweetsData] = useState([]);
   const [lastTweet, setLastTweet] = useState({});
   const [firstName, setFirstName] = useState("");
   const [username, setUsername] = useState("");
+  const [trends, setTrends] = useState([]);
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
+  const likes = useSelector((state) => state.likes.value);
   const router = useRouter();
   const [tweetMessage, setTweetMessage] = useState("");
   const [counter, setCounter] = useState(0);
@@ -75,6 +78,7 @@ function Home() {
 
   const handleClick = () => {
     dispatch(logout());
+    dispatch(resetLikes());
     router.push("/");
   };
 
@@ -90,6 +94,7 @@ function Home() {
         if (data.result) {
           setTweetsData((prevTweets) => [data.newTweet, ...prevTweets]);
           setTweetMessage("");
+          setCounter(0);
         }
       });
   };
@@ -130,11 +135,11 @@ function Home() {
       />
     );
   });
-  let styleWord = {};
-  const regex = /#[0-9 A-Z]/gi;
-  if (element.message.match(regex)) {
-    styleWord = { color: "#3b88d5" };
-  }
+  // let styleWord = {};
+  // const regex = /#[0-9 A-Z]/gi;
+  // if (element.message.match(regex)) {
+  //   styleWord = { color: "#3b88d5" };
+  // }
 
   return (
     <div className={styles.home}>
@@ -171,7 +176,10 @@ function Home() {
             Tweet
           </button>
         </div>
-        <div className={styles.tweetsContainer} style={styleWord}>
+        <div
+          className={styles.tweetsContainer}
+          // style={styleWord}
+        >
           {tweets}
         </div>
       </section>
