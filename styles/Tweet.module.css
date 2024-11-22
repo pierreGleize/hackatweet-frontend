@@ -22,8 +22,22 @@
 .like{
     display: flex;
     align-items: center;
+    gap: 10px;
 }
+
 .like svg{
-    margin-right: 5px;
+    cursor: pointer;
+}
+.text{
+    gap: 10px;
+    display: flex;
+    align-items: center;
+}
+.text p {
+    color: #424D5D;
+    font-weight: 600;
+}
+.text span {
+    font-size: 18px;
 }
 
