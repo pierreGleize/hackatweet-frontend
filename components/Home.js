@@ -115,12 +115,13 @@ function Home() {
 
   //
   const tweets = tweetsData.map((element, i) => {
+    // const isLiked = element.like.includes(user.token);
     const isLiked = likes.includes(element._id);
     const isUser = element.user.token === user.token;
     const date = moment(element.date).fromNow(true);
     return (
       <Tweet
-        key={i}
+        key={element._id}
         date={date}
         message={element.message}
         like={element.like.length}

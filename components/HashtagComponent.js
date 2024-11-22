@@ -66,6 +66,7 @@ function HashtagComponent() {
   };
 
   const tweetsTab = tweets.map((tweet) => {
+    // const isLiked = tweet.like.includes(user.token);
     const isLiked = likes.includes(tweet._id);
     const isUser = tweet.user.token === user.token;
     const date = moment(tweet.date).fromNow(true);

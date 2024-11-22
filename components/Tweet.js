@@ -43,11 +43,14 @@ const Tweet = ({
     })
       .then((response) => response.json())
       .then((data) => {
-        handleUpdateLikes(tweetId, data.tweet.like);
-        if (!isLiked) {
-          dispatch(likeTweet(tweetId));
-        } else {
-          dispatch(unlikeTweet(tweetId));
+        console.log(data);
+        if (data.result) {
+          handleUpdateLikes(tweetId, data.tweet.like);
+          if (!isLiked) {
+            dispatch(likeTweet(tweetId));
+          } else {
+            dispatch(unlikeTweet(tweetId));
+          }
         }
       });
   };
