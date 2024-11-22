@@ -99,11 +99,11 @@ function Home() {
     router.push('/')
   }
 
-  let styleWord = {}
-  const regex = /#[0-9 A-Z]/gi
-  if(element.message.match(regex)){
-    styleWord = {'color' : '#3b88d5'}
-  }
+  // let styleWord = {}
+  // const regex = /#[0-9 A-Z]/gi
+  // if(element.message.match(regex)){
+  //   styleWord = {'color' : '#3b88d5'}
+  // }
 
   const tweets = tweetsData.map((element, i) => (
     <Tweet
@@ -147,7 +147,7 @@ function Home() {
           <span className={styles.letterCounter}>{counter}/280</span>
           <button className={styles.tweetButton}>Tweet</button>
         </div>
-        <div className={styles.tweetsContainer} style={styleWord}>{tweets}</div>
+        <div className={styles.tweetsContainer}>{tweets}</div>
       </section>
       <div>
       <section className={styles.rightSection}>
