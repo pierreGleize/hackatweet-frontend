@@ -11,17 +11,20 @@ import { resetLikes } from "../reducers/likes";
 
 function Home() {
   const [tweetsData, setTweetsData] = useState([]);
-  const [firstName, setFirstName] = useState("");
-  const [username, setUsername] = useState("");
+  const [lastTweet, setLastTweet] = useState({});
+  const [firstName, setFirstName] = useState('')
+  const [username, setUsername] = useState('')
+  const [tweetMessage, setTweetMessage] = useState("");
+  const [counter, setCounter] = useState(0);
   const [trends, setTrends] = useState([]);
+  const [updTrends, setUpdTrends] = useState(false)
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
   const likes = useSelector((state) => state.likes.value);
   const router = useRouter();
-  const [tweetMessage, setTweetMessage] = useState("");
-  const [counter, setCounter] = useState(0);
 
+  
   useEffect(() => {
     fetch("http://localhost:3000/tweets")
       .then((response) => response.json())
@@ -39,33 +42,51 @@ function Home() {
   useEffect(() => {
     fetch("http://localhost:3000/tweets/hashtags")
       .then((response) => response.json())
-      .then((data) => {
+      .then(data => {
         let trendsTab = [];
         for (let hashtag of data.result) {
           trendsTab.push(hashtag);
         }
         setTrends(trendsTab);
       });
-  }, []);
+  }, [updTrends]);
+
+
 
   // Création des composants trends
   const trendsTab = trends.map((element) => {
     return <Trends hashtag={element.hashtag} count={element.count} />;
   });
 
+
   useEffect(() => {
-    if (!user.token) {
-      return;
+    if(!user.token){
+      return
     }
     fetch(`http://localhost:3000/users/${user.token}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          setFirstName(data.firstName);
-          setUsername(data.username);
-        }
-      });
-  }, []);
+    .then(response => response.json())
+    .then(data => {
+      if(data.result){
+        setFirstName(data.firstName);
+        setUsername(data.username);
+      }
+    })
+  }, [])
+
+
+  useEffect(() => {
+    if(!user.token){
+      return
+    }
+    fetch(`http://localhost:3000/users/${user.token}`)
+    .then(response => response.json())
+    .then(data => {
+      if(data.result){
+        setFirstName(data.firstName);
+        setUsername(data.username);
+      }
+    })
+  }, [])
 
   function createMessage(e) {
     const input = e.target.value;
@@ -93,7 +114,8 @@ function Home() {
         if (data.result) {
           setTweetsData((prevTweets) => [data.newTweet, ...prevTweets]);
           setTweetMessage("");
-          setCounter(0);
+          setCounter(0)
+          setUpdTrends(!updTrends)
         }
       });
   };
@@ -134,11 +156,6 @@ function Home() {
       />
     );
   });
-  // let styleWord = {};
-  // const regex = /#[0-9 A-Z]/gi;
-  // if (element.message.match(regex)) {
-  //   styleWord = { color: "#3b88d5" };
-  // }
 
   return (
     <div className={styles.home}>
@@ -151,11 +168,9 @@ function Home() {
             <img className={styles.userLogo} src="/userIcon.png"></img>
             <div className={styles.userInfos}>
               <h3 className={styles.userFirstName}>{firstName}</h3>
-              <span className={styles.username}>{username}</span>
-
-              <button className={styles.logout} onClick={handleClick}>
-                Logout
-              </button>
+              <span className={styles.username}>@{username}</span>
+            
+              <button className={styles.logout} onClick={handleClick}>Logout</button>
             </div>
           </div>
         </div>
@@ -175,12 +190,7 @@ function Home() {
             Tweet
           </button>
         </div>
-        <div
-          className={styles.tweetsContainer}
-          // style={styleWord}
-        >
-          {tweets}
-        </div>
+        <div className={styles.tweetsContainer}>{tweets}</div>
       </section>
       <div>
         <section className={styles.rightSection}>

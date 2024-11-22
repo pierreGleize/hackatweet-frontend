@@ -18,7 +18,9 @@ function HashtagComponent() {
 
   useEffect(() => {
     if (slug) {
-      setHashtag("#" + slug);
+        setHashtag("#" +slug);
+    } else {
+      setHashtag("#");
     }
   }, [slug]);
 
@@ -102,19 +104,11 @@ function HashtagComponent() {
 
       <section className={styles.middleSection}>
         <h2 className={styles.title}>Hashtag</h2>
-        <input
-          value={hashtag}
-          onChange={searchHashtag}
-          type="text"
-          className={styles.input}
-        />
-        <div className={styles.tweetsContainer}>
-          {tweetsTab.length > 0 ? (
-            tweetsTab
-          ) : (
-            <p>No tweets found with {hashtag}</p>
-          )}
-        </div>
+        <input  autoFocus value={hashtag} onChange={(e) =>searchHashtag(e)} type="text" className={styles.input}></input>
+        {tweetsTab.length > 0 ? <div className={styles.tweetsContainer}>{tweetsTab}</div>
+        : <div className={styles.tweetsContainer}><p className={styles.noTweet}>No tweets found with {hashtag}</p></div>
+        }
+        
       </section>
 
       <section className={styles.rightSection}>
