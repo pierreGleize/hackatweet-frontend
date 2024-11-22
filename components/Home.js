@@ -22,7 +22,9 @@ function Home() {
   const router = useRouter()
   const [tweetMessage, setTweetMessage] = useState('')
   const [counter, setCounter] = useState(0)
-  
+  const [trends, setTrends] = useState([])
+
+
   useEffect(() => {
     fetch("http://localhost:3000/tweets")
       .then((response) => response.json())
@@ -48,6 +50,24 @@ function Home() {
       }
     })
   }, [])
+  // Fetch pour récupérer les trends
+  useEffect(() => {
+    fetch("http://localhost:3000/tweets/hashtags")
+    .then((response) => response.json())
+    .then(data => {
+      let trendsTab = []
+      for (let hashtag of data.result){
+        trendsTab.push(hashtag)
+      }
+      setTrends(trendsTab)
+    })
+  },[])
+
+  // Création des composants trends
+  const trendsTab = trends.map(element => {
+    return <Trends hashtag={element.hashtag} count={element.count}/>
+  })
+  
 
   function createMessage(e) {
     const input = e.target.value;
@@ -113,7 +133,12 @@ function Home() {
         <div className={styles.tweetsContainer} style={styleWord}>{tweets}</div>
       </section>
       <div>
-      <Trends/>
+      <section className={styles.rightSection}>
+        <h2 className={styles.title}>Trends</h2>
+        <div className={styles.trendsSection}> 
+        {trendsTab}
+        </div> 
+      </section>
       </div>
     </div>
   )
