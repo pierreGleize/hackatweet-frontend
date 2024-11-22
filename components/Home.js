@@ -11,14 +11,14 @@ import moment from "moment";
 function Home() {
   const [tweetsData, setTweetsData] = useState([]);
   const [lastTweet, setLastTweet] = useState({});
-  const [tweetMessage, setTweetMessage] = useState("");
-  const [counter, setCounter] = useState(0);
+  const [firstName, setFirstName] = useState("");
+  const [username, setUsername] = useState("");
 
   const dispatch = useDispatch();
-  const router = useRouter();
-
   const user = useSelector((state) => state.user.value);
-  const likes = useSelector((state) => state.likes.value);
+  const router = useRouter();
+  const [tweetMessage, setTweetMessage] = useState("");
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     fetch("http://localhost:3000/tweets")
@@ -51,6 +51,20 @@ function Home() {
     return <Trends hashtag={element.hashtag} count={element.count} />;
   });
 
+  useEffect(() => {
+    if (!user.token) {
+      return;
+    }
+    fetch(`http://localhost:3000/users/${user.token}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          setFirstName(data.firstName);
+          setUsername(data.username);
+        }
+      });
+  }, []);
+
   function createMessage(e) {
     const input = e.target.value;
     if (input.length <= 280) {
@@ -58,6 +72,7 @@ function Home() {
       setCounter(input.length);
     }
   }
+
   const handleClick = () => {
     dispatch(logout());
     router.push("/");
@@ -115,6 +130,11 @@ function Home() {
       />
     );
   });
+  let styleWord = {};
+  const regex = /#[0-9 A-Z]/gi;
+  if (element.message.match(regex)) {
+    styleWord = { color: "#3b88d5" };
+  }
 
   return (
     <div className={styles.home}>
@@ -122,11 +142,17 @@ function Home() {
         <Link href="/homepage">
           <img className={styles.leftTwitterLogo} src="/twitter.png"></img>
         </Link>
-        <div className={styles.userSection}>
-          <img className={styles.userLogo} src="/userIcon.png"></img>
-          <div className={styles.userInfos}>
-            <h3 className={styles.userFirstName}>Thomas</h3>
-            <span className={styles.username}>@thomasLebel</span>
+        <div className={styles.userDiv}>
+          <div className={styles.userSection}>
+            <img className={styles.userLogo} src="/userIcon.png"></img>
+            <div className={styles.userInfos}>
+              <h3 className={styles.userFirstName}>{firstName}</h3>
+              <span className={styles.username}>{username}</span>
+
+              <button className={styles.logout} onClick={handleClick}>
+                Logout
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -145,7 +171,9 @@ function Home() {
             Tweet
           </button>
         </div>
-        <div className={styles.tweetsContainer}>{tweets}</div>
+        <div className={styles.tweetsContainer} style={styleWord}>
+          {tweets}
+        </div>
       </section>
       <div>
         <section className={styles.rightSection}>
