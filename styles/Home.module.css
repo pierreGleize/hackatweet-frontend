@@ -83,6 +83,8 @@
   border-bottom: 2px solid grey;
   color: white;
   overflow-wrap: break-word;
+  min-height: 50px; 
+  max-height: 200px;
 }
 
 .input:focus {
@@ -100,6 +102,7 @@
   border-radius: 15px;
   border: none;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 .tweetSection {
@@ -147,6 +150,8 @@
   width: calc(100% + 60px);
 }
 
+<<<<<<< HEAD
+=======
 
 /*  */
 
@@ -164,28 +169,26 @@
 
 
 /* Barre de défilement */
+>>>>>>> f85ca6ee7a7d2d7c7ba892237f92c224f355460b
 .tweetsContainer::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
-/* Partie de la barre de défilement (thumb) */
+
 .tweetsContainer::-webkit-scrollbar-thumb {
-  background: #888; /* Couleur de la barre de défilement */
-  border-radius: 8px; /* Bordure arrondie */
+  background: #888; 
+  border-radius: 8px; 
 }
 
-/* Effet au survol de la barre de défilement */
 .tweetsContainer::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Couleur au survol */
+  background: #555; 
 }
 
-/* Barre de défilement horizontale */
 .tweetsContainer::-webkit-scrollbar-horizontal {
   height: 6px;
 }
 
-/* Barre de défilement verticale */
 .tweetsContainer::-webkit-scrollbar-vertical {
   width: 6px;
 }
