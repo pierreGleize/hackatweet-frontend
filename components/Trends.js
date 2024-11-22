@@ -1,27 +1,27 @@
 import { useState } from 'react';
 import styles from '../styles/Trends.module.css';
+import { useRouter } from 'next/router';
 
-export default function Trends() {
-
-    const [hashtag, setHashtag] = useState('')
-    const [counterHashtag, setCounterHashtag] = useState(0)
-
+export default function Trends(props) {
+    const formattedHashtag = props.hashtag.slice(1)
+    const router= useRouter()
+    function handleClick(){
+        router.push(`/hashtag/${encodeURIComponent(formattedHashtag)}`)
+    }
     
     return (
-        <div className={styles.home}>
-             <section className={styles.rightSection}>
-                 <h2 className={styles.title}>Trends</h2>
-                <div className={styles.trendsSection}>
-                    <div className={styles.trend}>
-                        <h3 className={styles.hashtag}>#hackatweet</h3>
-                        <p className={styles.tweetsNumber}>2 Tweets</p>
+        
+                <>
+                    <div onClick={handleClick} className={styles.trend}>
+                        <h3 className={styles.hashtag}>{props.hashtag}</h3>
+                        {props.count > 1 ? 
+                        <p className={styles.tweetsNumber}>{props.count} Tweets</p>
+                        :
+                        <p className={styles.tweetsNumber}>{props.count} Tweet</p>    
+                        }
+                        
                     </div>
-                    <div className={styles.trend}>
-                        <h3 className={styles.hashtag}>#hackatweet</h3>
-                        <p className={styles.tweetsNumber}>2 Tweets</p>
-                    </div>
-                </div>
-            </section>
-        </div>
+                </>
+            
     )
 }
