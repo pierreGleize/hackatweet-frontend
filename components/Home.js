@@ -18,6 +18,7 @@ function Home() {
   const [counter, setCounter] = useState(0);
   const [trends, setTrends] = useState([]);
   const [updTrends, setUpdTrends] = useState(false);
+  const [hashtag, setHashtag] = useState([]);
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
@@ -139,11 +140,23 @@ function Home() {
     const isLiked = likes.includes(element._id);
     const isUser = element.user.token === user.token;
     const date = moment(element.date).fromNow(true);
+    const message = element.message.split(" ");
+    const tweet = message.map((word, i) => {
+      if (word.startsWith("#")) {
+        return (
+          <span key={i} style={{ color: "#3283d3" }}>
+            {word}{" "}
+          </span>
+        );
+      } else {
+        return word + " ";
+      }
+    });
     return (
       <Tweet
         key={element._id}
         date={date}
-        message={element.message}
+        message={tweet}
         like={element.like.length}
         avatar={element.user.avatar}
         firstname={element.user.firstName}
