@@ -6,8 +6,8 @@ import Trends from "./Trends";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Tweet from "./Tweet";
-import moment from 'moment';
-
+import moment from "moment";
+import { resetLikes } from "../reducers/likes";
 
 function Home() {
   const [tweetsData, setTweetsData] = useState([]);
@@ -20,10 +20,9 @@ function Home() {
   const [updTrends, setUpdTrends] = useState(false)
 
   const dispatch = useDispatch();
-  const router = useRouter();
-
   const user = useSelector((state) => state.user.value);
   const likes = useSelector((state) => state.likes.value);
+  const router = useRouter();
 
   
   useEffect(() => {
@@ -98,15 +97,10 @@ function Home() {
   }
 
   const handleClick = () => {
-    dispatch(logout())
-    router.push('/')
-  }
-
-  // let styleWord = {}
-  // const regex = /#[0-9 A-Z]/gi
-  // if(element.message.match(regex)){
-  //   styleWord = {'color' : '#3b88d5'}
-  // }
+    dispatch(logout());
+    dispatch(resetLikes());
+    router.push("/");
+  };
 
   const handleTweet = () => {
     if (!user.token) return;
@@ -147,7 +141,7 @@ function Home() {
     const date = moment(element.date).fromNow(true);
     return (
       <Tweet
-        key={i}
+        key={element._id}
         date={date}
         message={element.message}
         like={element.like.length}
@@ -166,10 +160,12 @@ function Home() {
   return (
     <div className={styles.home}>
       <section className={styles.leftSection}>
-        <Link href="/homepage"><img className={styles.leftTwitterLogo} src='/twitter.png'></img></Link>
+        <Link href="/homepage">
+          <img className={styles.leftTwitterLogo} src="/twitter.png"></img>
+        </Link>
         <div className={styles.userDiv}>
           <div className={styles.userSection}>
-            <img className={styles.userLogo} src='/userIcon.png'></img>
+            <img className={styles.userLogo} src="/userIcon.png"></img>
             <div className={styles.userInfos}>
               <h3 className={styles.userFirstName}>{firstName}</h3>
               <span className={styles.username}>@{username}</span>

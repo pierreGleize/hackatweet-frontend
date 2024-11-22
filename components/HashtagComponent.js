@@ -1,21 +1,20 @@
-import styles from '../styles/HashtagComponent.module.css';
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import Trends from './Trends';
-import Tweet from './Tweet';
-
+import styles from "../styles/HashtagComponent.module.css";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import Trends from "./Trends";
+import Tweet from "./Tweet";
+import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
 function HashtagComponent() {
-
   const router = useRouter();
   const { slug } = router.query;
 
-  const [hashtag, setHashtag] = useState('')
-  const [trends, setTrends] = useState([])
-  const [tweets, setTweets] = useState([])
-  console.log(tweets)
-
-  // Fonctionnalité pour changer l'url de manière dynamique
+  const [hashtag, setHashtag] = useState("");
+  const [trends, setTrends] = useState([]);
+  const [tweets, setTweets] = useState([]);
+  const user = useSelector((state) => state.user.value);
+  const likes = useSelector((state) => state.likes.value);
 
   useEffect(() => {
     if (slug) {
@@ -25,65 +24,82 @@ function HashtagComponent() {
     }
   }, [slug]);
 
-  function searchHashtag(e){
-    setHashtag(e.target.value)
-    let value = e.target.value
-    value = value.slice(1)
+  function searchHashtag(e) {
+    const value = e.target.value.slice(1); // Supprimer le '#' du début
+    setHashtag("#" + value);
     router.push(`/hashtag/${value}`, undefined, { shallow: true });
   }
 
-    // Fetch pour récupérer les trends
-    useEffect(() => {
-      fetch("http://localhost:3000/tweets/hashtags")
+  useEffect(() => {
+    fetch("http://localhost:3000/tweets/hashtags")
       .then((response) => response.json())
-      .then(data => {
-        let trendsTab = []
-        for (let hashtag of data.result){
-          trendsTab.push(hashtag)
-        }
-        setTrends(trendsTab)
-      })
-    },[])
-  
-    // Création des composants trends
-    const trendsTab = trends.map(element => {
-      return <Trends hashtag={element.hashtag} count={element.count}/>
+      .then((data) => setTrends(data.result));
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/tweets/searchTweet", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ hashtag: hashtag }),
     })
+      .then((response) => response.json())
+      .then((data) => {
+        const sortedTweets = data.result.sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        );
+        setTweets(sortedTweets);
+      });
+  }, [hashtag]);
 
-    // Fetch pour récupérer les tweet selon le hashtag dans l'input
-    useEffect(() => {
-      let tweetToShow = []
-      fetch('http://localhost:3000/tweets/searchTweet', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({hashtag : hashtag}),
-      }).then(response => response.json())
-      .then(data => {
-        for (let tweet of data.result){
-          tweetToShow.push(tweet)
-        }
-        setTweets(tweetToShow)
-      })
-    },[hashtag])
+  // Mettre à jour les likes dans l'état
+  const handleUpdateLikes = (tweetId, newLikes) => {
+    setTweets((prevTweets) =>
+      prevTweets.map((tweet) =>
+        tweet._id === tweetId ? { ...tweet, like: newLikes } : tweet
+      )
+    );
+  };
 
-    // Création du tableau avec les composants tweet trouvés
-    const tweetsTab = tweets.map(tweet => {
-      return <Tweet date={tweet.date} message={tweet.message} like={tweet.like.length} avatar={tweet.user.avatar} firstname={tweet.user.firstname} username={tweet.user.username}/>
-    })
+  // Supprimer un tweet dans l'état
+  const handleDeleteTweet = (tweetId) => {
+    setTweets((prevTweets) =>
+      prevTweets.filter((tweet) => tweet._id !== tweetId)
+    );
+  };
 
+  const tweetsTab = tweets.map((tweet) => {
+    const isLiked = likes.includes(tweet._id);
+    const isUser = tweet.user.token === user.token;
+    const date = moment(tweet.date).fromNow(true);
+
+    return (
+      <Tweet
+        key={tweet._id}
+        date={date}
+        message={tweet.message}
+        like={tweet.like.length}
+        avatar={tweet.user.avatar}
+        firstname={tweet.user.firstname}
+        username={tweet.user.username}
+        tweetId={tweet._id}
+        isLiked={isLiked}
+        isUser={isUser}
+        handleUpdateLikes={handleUpdateLikes}
+        handleDeleteTweet={handleDeleteTweet}
+      />
+    );
+  });
 
   return (
     <div className={styles.home}>
-
       <section className={styles.leftSection}>
-      <Link href="/homepage"><img className={styles.leftTwitterLogo} src='/twitter.png'></img></Link>
-        <div className={styles.userSection}>
-          <img className={styles.userLogo} src='/userIcon.png'></img>
-          <div className={styles.userInfos}>
-            <h3 className={styles.userFirstName}>Thomas</h3>
-            <span className={styles.username}>@thomasLebel</span>
-          </div>
-        </div>
+        <Link href="/homepage">
+          <img
+            className={styles.leftTwitterLogo}
+            src="/twitter.png"
+            alt="Logo"
+          />
+        </Link>
       </section>
 
       <section className={styles.middleSection}>
@@ -97,12 +113,17 @@ function HashtagComponent() {
 
       <section className={styles.rightSection}>
         <h2 className={styles.title}>Trends</h2>
-        <div className={styles.trendsSection}> 
-        {trendsTab}
-        </div> 
+        <div className={styles.trendsSection}>
+          {trends.map((trend) => (
+            <Trends
+              key={trend.hashtag}
+              hashtag={trend.hashtag}
+              count={trend.count}
+            />
+          ))}
+        </div>
       </section>
     </div>
   );
 }
-
 export default HashtagComponent;
