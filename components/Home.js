@@ -11,7 +11,6 @@ import { resetLikes } from "../reducers/likes";
 
 function Home() {
   const [tweetsData, setTweetsData] = useState([]);
-  const [lastTweet, setLastTweet] = useState({});
   const [firstName, setFirstName] = useState("");
   const [username, setUsername] = useState("");
   const [trends, setTrends] = useState([]);
@@ -115,7 +114,6 @@ function Home() {
 
   //
   const tweets = tweetsData.map((element, i) => {
-    // const isLiked = element.like.includes(user.token);
     const isLiked = likes.includes(element._id);
     const isUser = element.user.token === user.token;
     const date = moment(element.date).fromNow(true);
