@@ -16,6 +16,8 @@ function Home() {
   const [username, setUsername] = useState('')
   const [tweetMessage, setTweetMessage] = useState("");
   const [counter, setCounter] = useState(0);
+  const [trends, setTrends] = useState([]);
+  const [updTrends, setUpdTrends] = useState(false)
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -48,28 +50,9 @@ function Home() {
         }
         setTrends(trendsTab);
       });
-  }, []);
-
-  // Création des composants trends
-  const trendsTab = trends.map((element) => {
-    return <Trends hashtag={element.hashtag} count={element.count} />;
-  });
+  }, [updTrends]);
 
 
-  useEffect(() => {
-    if(!user.token){
-      return
-    }
-    fetch(`http://localhost:3000/users/${user.token}`)
-    .then(response => response.json())
-    .then(data => {
-      let trendsTab = []
-      for (let hashtag of data.result){
-        trendsTab.push(hashtag)
-      }
-      setTrends(trendsTab)
-    })
-  },[])
 
   // Création des composants trends
   const trendsTab = trends.map((element) => {
@@ -137,6 +120,8 @@ function Home() {
         if (data.result) {
           setTweetsData((prevTweets) => [data.newTweet, ...prevTweets]);
           setTweetMessage("");
+          setCounter(0)
+          setUpdTrends(!updTrends)
         }
       });
   };
@@ -187,7 +172,7 @@ function Home() {
             <img className={styles.userLogo} src='/userIcon.png'></img>
             <div className={styles.userInfos}>
               <h3 className={styles.userFirstName}>{firstName}</h3>
-              <span className={styles.username}>{username}</span>
+              <span className={styles.username}>@{username}</span>
             
               <button className={styles.logout} onClick={handleClick}>Logout</button>
             </div>

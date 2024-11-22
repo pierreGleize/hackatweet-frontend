@@ -150,8 +150,6 @@
   width: calc(100% + 60px);
 }
 
-<<<<<<< HEAD
-=======
 
 /*  */
 
@@ -169,7 +167,6 @@
 
 
 /* Barre de défilement */
->>>>>>> f85ca6ee7a7d2d7c7ba892237f92c224f355460b
 .tweetsContainer::-webkit-scrollbar {
   width: 6px;
   height: 6px;
