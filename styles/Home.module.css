@@ -78,6 +78,7 @@
   font-size: 25px;
   background-color: #151D26;
   width: 80%;
+  height: 400px;
   border: none;
   border-bottom: 2px solid grey;
   color: white;
@@ -149,6 +150,26 @@
   width: calc(100% + 60px);
 }
 
+<<<<<<< HEAD
+=======
+
+/*  */
+
+.rightSection{
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trendsSection{
+  width: 100%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+/* Barre de défilement */
+>>>>>>> f85ca6ee7a7d2d7c7ba892237f92c224f355460b
 .tweetsContainer::-webkit-scrollbar {
   width: 6px;
   height: 6px;
