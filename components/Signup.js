@@ -14,7 +14,7 @@ export default function Signup({ closeModal }) {
   const [messageError, setMessageError] = useState("");
 
   const handleClick = () => {
-    fetch("http://localhost:3000/users/signup", {
+    fetch("https://hackatweet-backend-amber-rho.vercel.app/users/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

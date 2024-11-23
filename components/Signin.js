@@ -14,7 +14,7 @@ export default function Signin({ closeModal }) {
   const [messageError, setMessageError] = useState("");
 
   const handleClick = () => {
-    fetch("http://localhost:3000/users/signin", {
+    fetch("https://hackatweet-backend-amber-rho.vercel.app/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

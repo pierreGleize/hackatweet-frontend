@@ -38,17 +38,20 @@ function HashtagComponent() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:3000/tweets/hashtags")
+    fetch("https://hackatweet-backend-amber-rho.vercel.app/tweets/hashtags")
       .then((response) => response.json())
       .then((data) => setTrends(data.result));
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/tweets/searchTweet", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ hashtag: hashtag }),
-    })
+    fetch(
+      "https://hackatweet-backend-amber-rho.vercel.app/tweets/searchTweet",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ hashtag: hashtag }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         const sortedTweets = data.result.sort(
@@ -109,24 +112,12 @@ function HashtagComponent() {
       />
     );
   });
-  // Création du tableau avec les composants tweet trouvés
-  // const tweetsTab = tweets.map(tweet => {
-  // const message = tweet.message.split(' ')
-  // const tweets = message.map((word, i) => {
-  //   if(word.startsWith('#')){
-  //     return <span key={i} style={{'color':'#3283d3'}}>{word}{' '}</span>
-  //   } else {
-  //     return word + ' '
-  //   }
-  // })
-  //   return <Tweet date={tweet.date} message={tweets} like={tweet.like.length} avatar={tweet.user.avatar} firstname={tweet.user.firstname} username={tweet.user.username}/>
-  // })
 
   useEffect(() => {
     if (!user.token) {
       return;
     }
-    fetch(`http://localhost:3000/users/${user.token}`)
+    fetch(`https://hackatweet-backend-amber-rho.vercel.app/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {

@@ -33,8 +33,8 @@ const Tweet = ({
       tweetId,
     };
     const url = isLiked
-      ? "http://localhost:3000/tweets/unlikeTweet"
-      : "http://localhost:3000/tweets/likeTweet";
+      ? "https://hackatweet-backend-amber-rho.vercel.app/tweets/unlikeTweet"
+      : "https://hackatweet-backend-amber-rho.vercel.app/tweets/likeTweet";
 
     fetch(url, {
       method: "POST",
@@ -60,9 +60,12 @@ const Tweet = ({
       return;
     }
     const token = user.token;
-    fetch(`http://localhost:3000/tweets/deleteTweet/${token}/${tweetId}`, {
-      method: "DELETE",
-    })
+    fetch(
+      `https://hackatweet-backend-amber-rho.vercel.app/tweets/deleteTweet/${token}/${tweetId}`,
+      {
+        method: "DELETE",
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
@@ -114,5 +117,3 @@ const Tweet = ({
 };
 
 export default Tweet;
-
-
