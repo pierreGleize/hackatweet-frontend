@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../styles/Tweet.module.css";
-import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +20,6 @@ const Tweet = ({
 }) => {
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
-  const likes = useSelector((state) => state.likes.value);
 
   const handleLikeTweet = () => {
     if (!user.token) {
@@ -43,7 +41,6 @@ const Tweet = ({
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.result) {
           handleUpdateLikes(tweetId, data.tweet.like);
           if (!isLiked) {
@@ -87,12 +84,6 @@ const Tweet = ({
           alt="Picture of the user"
           className={styles.userImage}
         />
-        {/* <p>
-          {firstname}
-          <span className={styles.textGrey}>
-            @{username}. {date}
-          </span>
-        </p> */}
         <div className={styles.text}>
           <span>{firstname}</span>
           <p>@{username}</p>

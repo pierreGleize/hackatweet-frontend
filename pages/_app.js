@@ -10,10 +10,6 @@ import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "@reduxjs/toolkit";
 
-// const store = configureStore({
-//   reducer: { user, likes },
-// });
-
 const reducers = combineReducers({ user, likes });
 
 const persistConfig = { key: "hackatweet", storage };

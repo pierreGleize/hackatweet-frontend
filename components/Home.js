@@ -18,7 +18,6 @@ function Home() {
   const [counter, setCounter] = useState(0);
   const [trends, setTrends] = useState([]);
   const [updTrends, setUpdTrends] = useState(false);
-  const [hashtag, setHashtag] = useState([]);
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
