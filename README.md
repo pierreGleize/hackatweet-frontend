@@ -19,7 +19,7 @@ Il s'agit d'une réplique du site Twitter, développée en équipe de trois pers
 
 ## Captures d'écran
 
-[![hackatweet-login.png](https://i.postimg.cc/Fs5HWRzr/hackatweet-login.png)](https://postimg.cc/t7kb79Fw)
+[![hacktweet-login.png](https://i.postimg.cc/bvrjmcjH/hacktweet-login.png)](https://postimg.cc/FYMqK6z7)
 [![hackatweet-home.png](https://i.postimg.cc/1tmpNBxd/hackatweet-home.png)](https://postimg.cc/qtFtP8vc)
 [![hackatweet-hashtags.png](https://i.postimg.cc/LsNJGM7y/hackatweet-hashtags.png)](https://postimg.cc/6746GFBR)
 
