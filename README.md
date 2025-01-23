@@ -1,5 +1,6 @@
 # Hackatweet
 Il s'agit d'une réplique du site Twitter, développée en équipe de trois personnes en deux jours.
+Le projet comprend un système de connexion, la possibilité de publier des tweets, de les liker, et d'ajouter des hashtags. De plus, nous avons implémenté une fonctionnalité de classification des tweets par catégorie.
 
 ## 🌟 Foncionnalités 
 - 🔐 Création de compte et connexion sécurisée.
